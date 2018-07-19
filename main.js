@@ -1,37 +1,34 @@
-'use strict'
-
-const read = require('readline-sync')
 const colors = require('colors')
-const menu = ['INGRESAR AUTOMOVIL', 'CONSULTAR']
+const read = require('readline-sync')
+const menu = ['Alta de Alumno', 'Consulta', 'Editar Alumno']
+const Alumno = require('./alumno')
 
 console.log(`${colors.white.bold('================')}`)
-console.log(`${colors.white.bold('MENU DE PROPIEDADES')}`)
+console.log(`${colors.white.bold('MENU DE OPCIONES')}`)
 console.log(`${colors.white.bold('================')}`)
 
 let opcion = 1
-let Automovil = require('./automovil')
-let auto = new Automovil()
+let alumno = new Alumno()
 
 while (menu[opcion] !== undefined) {
-  opcion = read.keyInSelect(menu, `${colors.yellow.bold('Elige una opción del menu?')}`)
-
+  opcion = read.keyInSelect(menu, `${colors.yellow.bold('Elige una opcion del menu?')}`)
   switch (menu[opcion]) {
-    case 'INGRESAR AUTOMOVIL':
-
-      auto.nserie = read.question('NUMERO DE SERIE : ')
-      auto.marca = read.question('MARCA : ')
-      auto.modelo = read.question('MODELO : ')
-      auto.tipo = read.question('TIPO : ')
-      auto.año = read.question('AÑO : ')
-      auto.cilindros = read.question('CILINDROS : ')
-      auto.color = read.question('COLOR : ')
-      auto.agregar()
+    case 'Alta de Alumno':
+      alumno.status = 'Add'
+      alumno.getDatos()
+      alumno.agregar()
+      alumno.getEdad()
       break
+    case 'Consulta':
+      alumno.status = 'Search'
+      alumno.consultar()
+      break
+    case 'Editar Alumno' :
+      // alumno.status = 'Edit'
 
-    case 'CONSULTAR':
-
-      auto.consultar()
+      alumno.modificar()
 
       break
   }
 }
+read.question(`${colors.red.bold('Has salido del sistema, presiona cualquier tecla para terminar !!!')}`)
